@@ -15,17 +15,34 @@ export class Courses {
   // Update courses when the service data changes
   courses = this.courseService.allCourses;
 
-  // Signal to hold the current search term
+  // Signals for search term and selected subject
   searchTerm = signal('');
+  selectedSubject = signal('');
 
-  // Computed signal to filter courses based on the search term
+  // Computed signal to filter courses based on search term and selected subject
   filteredCourses = computed(() => {
     const search = this.searchTerm().toLowerCase().trim();
+    const subject = this.selectedSubject();
 
-    return this.courses().filter(course =>
-      course.courseName.toLowerCase().includes(search) ||
-      course.courseCode.toLowerCase().includes(search)
-    );
+    return this.courses().filter(course => {
+      const matchesSearch =
+        course.courseName.toLowerCase().includes(search) ||
+        course.courseCode.toLowerCase().includes(search);
+
+      const matchesSubject =
+        !subject || course.subject === subject;
+
+      return matchesSearch && matchesSubject;
+    });
+  });
+
+  // Computed signal to get unique subjects from the courses
+  subjects = computed(() => {
+    const uniqueSubjects = [
+      ...new Set(this.courses().map(course => course.subject))
+    ];
+
+    return uniqueSubjects.sort();
   });
 
   // Load courses when the component is initialized
@@ -37,5 +54,11 @@ export class Courses {
   updateSearchTerm(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchTerm.set(input.value);
+  }
+
+  // Method to update the selected subject based on user selection
+  updateSubject(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedSubject.set(select.value);
   }
 }

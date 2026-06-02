@@ -1,11 +1,21 @@
 <section class="courses-page">
     <h2>Kurser</h2>
 
-    <label for="courseSearch">Sök kurs</label>
-
     <!-- Search input to filter courses by name or code -->
+    <label for="courseSearch">Sök kurs</label>
     <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod" [value]="searchTerm()"
         (input)="updateSearchTerm($event)">
+
+    <!-- Dropdown to filter courses by subject -->
+    <label for="subjectFilter">Välj ämne</label>
+    <select id="subjectFilter" [value]="selectedSubject()" (change)="updateSubject($event)">
+        <option value="">Alla ämnen</option>
+
+        <!-- Dynamically generate options for each unique subject -->
+        @for (subject of subjects(); track subject) {
+        <option [value]="subject">{{ subject }}</option>
+        }
+    </select>
 
     <p>
         Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
