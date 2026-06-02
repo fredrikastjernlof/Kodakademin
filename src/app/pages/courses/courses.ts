@@ -18,16 +18,18 @@ export class Courses {
   // Update courses when the service data changes
   courses = this.courseService.allCourses;
 
-  // Signals to manage search term, selected subject, and sort field
+  // Signals to manage search term, selected subject, sort field, and sort direction
   searchTerm = signal('');
   selectedSubject = signal('');
-  sortField = signal('courseName');
+  sortField = signal<'courseName' | 'courseCode' | 'points' | 'subject'>('courseName');
+  sortDirection = signal<'asc' | 'desc'>('asc');
 
-  // Computed signal to filter and sort courses based on search term, selected subject, and sort field
+  // Computed signal to filter and sort courses based on user input
   filteredCourses = computed(() => {
     const search = this.searchTerm().toLowerCase().trim();
     const subject = this.selectedSubject();
     const sortBy = this.sortField();
+    const direction = this.sortDirection();
 
     // Filter courses based on search term and selected subject
     const filtered = this.courses().filter(course => {
@@ -41,23 +43,32 @@ export class Courses {
       return matchesSearch && matchesSubject;
     });
 
-    // Sort the filtered courses based on the selected sort field
-    return filtered.sort((a, b) => {
+    // Sort the filtered courses based on the selected sort field and direction
+    return [...filtered].sort((a, b) => {
+      let result = 0;
+
       switch (sortBy) {
         case 'courseCode':
-          return a.courseCode.localeCompare(b.courseCode);
+          result = a.courseCode.localeCompare(b.courseCode);
+          break;
 
         case 'points':
-          return a.points - b.points;
+          result = a.points - b.points;
+          break;
 
         case 'subject':
-          return a.subject.localeCompare(b.subject);
+          result = a.subject.localeCompare(b.subject);
+          break;
 
         default:
-          return a.courseName.localeCompare(b.courseName);
+          result = a.courseName.localeCompare(b.courseName);
       }
+
+      // Reverse the result if the sort direction is descending
+      return direction === 'asc' ? result : -result;
     });
   });
+
 
   // Computed signal to get unique subjects from the courses
   subjects = computed(() => {
@@ -85,10 +96,27 @@ export class Courses {
     this.selectedSubject.set(select.value);
   }
 
-  // Method to update the sort field based on user selection
-  updateSort(event: Event): void {
+  // Method to update the sort field and toggle sort direction when the same field is selected again
+  updateSort(field: 'courseName' | 'courseCode' | 'points' | 'subject'): void {
+    if (this.sortField() === field) {
+      this.sortDirection.set(this.sortDirection() === 'asc' ? 'desc' : 'asc');
+      return;
+    }
+
+    this.sortField.set(field);
+    this.sortDirection.set('asc');
+  }
+
+  // Method to update the sort field from a select dropdown
+  updateSortFromSelect(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    this.sortField.set(select.value);
+    const field = select.value as 'courseName' | 'courseCode' | 'points' | 'subject';
+
+    this.sortField.set(field);
+  }
+  // Method to toggle the sort direction between ascending and descending
+  toggleSortDirection(): void {
+    this.sortDirection.set(this.sortDirection() === 'asc' ? 'desc' : 'asc');
   }
 
   // Method to add a course to the schedule using the ScheduleService

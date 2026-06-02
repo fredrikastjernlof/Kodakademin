@@ -1,54 +1,124 @@
-<section class="courses-page">
-    <h2>Kurser</h2>
+<section class="courses-page" aria-labelledby="coursesHeading">
+    <div class="page-card">
+        <h2 id="coursesHeading">Kurser</h2>
 
+        <div class="filters">
+            <div>
+                <!-- Search input for filtering courses by name or code -->
+                <label for="courseSearch">Sök kurs</label>
+                <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod"
+                    [value]="searchTerm()" (input)="updateSearchTerm($event)">
+            </div>
 
-    <div class="filters">
-        <div>
-            <!-- Search input to filter courses by name or code -->
-            <label for="courseSearch">Sök kurs</label>
-            <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod" [value]="searchTerm()"
-                (input)="updateSearchTerm($event)">
+            <div>
+                <!-- Dropdown for filtering courses by subject -->
+                <label for="subjectFilter">Välj ämne</label>
+                <select id="subjectFilter" [value]="selectedSubject()" (change)="updateSubject($event)">
+                    <option value="">Alla ämnen</option>
+                    <!-- Options for each subject -->
+                    @for (subject of subjects(); track subject) {
+                    <option [value]="subject">{{ subject }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <!-- Display the count of filtered courses and total courses, showing only the first 20 results -->
+        <p class="result-count">
+            Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
+            Visar de första {{ filteredCourses().slice(0, 20).length }}.
+        </p>
+
+        <div class="mobile-sort" aria-label="Sortera kurser">
+            <label for="mobileSortField">Sortera efter</label>
+
+            <div class="mobile-sort-row">
+                <!-- Dropdown for selecting the sort field on mobile -->
+                <select id="mobileSortField" [value]="sortField()" (change)="updateSortFromSelect($event)">
+                    <option value="courseCode">Kurskod</option>
+                    <option value="courseName">Kursnamn</option>
+                    <option value="points">Poäng</option>
+                    <option value="subject">Ämne</option>
+                </select>
+                <!-- Button to toggle sort direction on mobile -->
+                <button class="direction-button" type="button" (click)="toggleSortDirection()"
+                    [attr.aria-label]="sortDirection() === 'asc' ? 'Sortera fallande' : 'Sortera stigande'">
+                    {{ sortDirection() === 'asc' ? '↑' : '↓' }}
+                </button>
+            </div>
         </div>
 
-        <div>
-            <!-- Dropdown to filter courses by subject -->
-            <label for="subjectFilter">Välj ämne</label>
-            <select id="subjectFilter" [value]="selectedSubject()" (change)="updateSubject($event)">
-                <option value="">Alla ämnen</option>
+        <div class="table-wrapper">
+            <table>
+                <caption class="visually-hidden">Lista över kurser</caption>
 
-                <!-- Dynamically generate options for each unique subject -->
-                @for (subject of subjects(); track subject) {
-                <option [value]="subject">{{ subject }}</option>
-                }
-            </select>
+                <thead>
+                    <tr>
+                        <th>
+                            <!-- Buttons in the table header to sort by each column -->
+                            <button type="button" (click)="updateSort('courseCode')">
+                                Kurskod
+                                @if (sortField() === 'courseCode') {
+                                <span>{{ sortDirection() === 'asc' ? '↑' : '↓' }}</span>
+                                }
+                            </button>
+                        </th>
+
+                        <th>
+                            <button type="button" (click)="updateSort('courseName')">
+                                Kursnamn
+                                @if (sortField() === 'courseName') {
+                                <span>{{ sortDirection() === 'asc' ? '↑' : '↓' }}</span>
+                                }
+                            </button>
+                        </th>
+
+                        <th>
+                            <button type="button" (click)="updateSort('points')">
+                                Poäng
+                                @if (sortField() === 'points') {
+                                <span>{{ sortDirection() === 'asc' ? '↑' : '↓' }}</span>
+                                }
+                            </button>
+                        </th>
+
+                        <th>
+                            <button type="button" (click)="updateSort('subject')">
+                                Ämne
+                                @if (sortField() === 'subject') {
+                                <span>{{ sortDirection() === 'asc' ? '↑' : '↓' }}</span>
+                                }
+                            </button>
+                        </th>
+
+                        <th>Lägg till</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Loop through the filtered courses and display them in the table, showing only the first 20 results -->
+                    @for (course of filteredCourses().slice(0, 20); track course.courseCode) {
+                    <tr>
+                        <td data-label="Kurskod">{{ course.courseCode }}</td>
+                        <td data-label="Kursnamn">{{ course.courseName }}</td>
+                        <td data-label="Poäng">{{ course.points }}</td>
+                        <td data-label="Ämne">{{ course.subject }}</td>
+                        <td data-label="Lägg till">
+                            <!-- Button to add the course to the schedule, disabled if the course is already selected -->
+                            <button class="add-button" type="button" (click)="addToSchedule(course)"
+                                [disabled]="isSelected(course.courseCode)" [attr.aria-label]="isSelected(course.courseCode)
+                                 ? course.courseName + ' är redan tillagd i ramschemat'
+                                    : 'Lägg till ' + course.courseName + ' i ramschemat'">
+                                @if (isSelected(course.courseCode)) {
+                                ✓
+                                } @else {
+                                +
+                                }
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <!-- Dropdown to select the field to sort courses by -->
-    <label for="sortField">Sortera efter</label>
-    <select id="sortField" [value]="sortField()" (change)="updateSort($event)">
-        <option value="courseName">Kursnamn</option>
-        <option value="courseCode">Kurskod</option>
-        <option value="points">Poäng</option>
-        <option value="subject">Ämne</option>
-    </select>
-
-    <p>
-        Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
-        Visar de första {{ filteredCourses().slice(0, 20).length }}.
-    </p>
-
-    <!-- Display the filtered courses, showing only the first 20 results for performance -->
-    @for (course of filteredCourses().slice(0, 20); track course.courseCode) {
-    <article class="course-card">
-        <h3>{{ course.courseName }}</h3>
-
-        <p>Kurskod: {{ course.courseCode }}</p>
-        <p>Poäng: {{ course.points }}</p>
-        <p>Ämne: {{ course.subject }}</p>
-        <button type="button" (click)="addToSchedule(course)" [disabled]="isSelected(course.courseCode)">
-            @if (isSelected(course.courseCode)) { Tillagd } @else { Lägg till }
-        </button>
-    </article>
-    }
 </section>

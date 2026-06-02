@@ -1,12 +1,264 @@
-.filters {
+.courses-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.page-card {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(8px);
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.15);
+}
+
+.courses-page h2 {
   margin-bottom: 1rem;
 }
 
-.filters div {
-  margin-bottom: 0.75rem;
+.filters {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.filters label {
+.filters label,
+.mobile-sort label {
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.filters input,
+.filters select,
+.mobile-sort select,
+.direction-button {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  padding: 0.8rem;
+}
+
+.result-count {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.mobile-sort {
+  display: none;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: white;
+}
+
+thead {
+  background: linear-gradient(135deg,
+      rgb(15 23 42 / 0.95),
+      rgb(30 41 59 / 0.92),
+      rgb(51 65 85 / 0.88));
+  backdrop-filter: blur(12px);
+}
+
+th {
+  text-align: left;
+}
+
+thead th {
+  color: white;
+}
+
+th button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background: transparent;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+th button {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+th button:hover,
+th button:focus-visible {
+  background: rgb(255 255 255 / 0.08);
+}
+
+td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  min-width: 6rem;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  min-width: 5rem;
+}
+
+tbody tr:hover {
+  background: #f5f7fa;
+}
+
+.add-button {
+  min-width: 2.5rem;
+  padding: 0.55rem 0.9rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg,
+      rgb(15 23 42 / 0.95),
+      rgb(30 41 59 / 0.92),
+      rgb(51 65 85 / 0.88));
+  backdrop-filter: blur(12px);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-button:hover:not(:disabled),
+.direction-button:hover {
+  opacity: 0.9;
+}
+
+.add-button:disabled {
+  background: #9ca3af;
+  cursor: default;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 768px) {
+  .courses-page {
+    padding: 0.25rem;
+  }
+
+  .page-card {
+    padding: 0.75rem;
+  }
+
+  .mobile-sort {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-sort-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-sort select {
+    width: 100%;
+    max-width: 12rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    background: white;
+  }
+
+  .direction-button {
+    display: grid;
+    place-items: center;
+    min-width: 3rem;
+    min-height: 2.75rem;
+    background: linear-gradient(135deg,
+        rgb(15 23 42 / 0.95),
+        rgb(30 41 59 / 0.92),
+        rgb(51 65 85 / 0.88));
+    backdrop-filter: blur(12px);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .table-wrapper {
+    overflow-x: visible;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  table {
+    border-radius: 0.25rem;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    gap: 1rem;
+  }
+
+  tr {
+    padding: 0.75rem;
+    border-bottom: 1px solid #d1d5db;
+    border-radius: 0;
+    background: white;
+    box-shadow: none;
+  }
+
+  td {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  .add-button {
+    width: fit-content;
+    max-width: 100%;
+  }
 }
