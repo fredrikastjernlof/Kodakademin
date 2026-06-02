@@ -15,16 +15,19 @@ export class Courses {
   // Update courses when the service data changes
   courses = this.courseService.allCourses;
 
-  // Signals for search term and selected subject
+  // Signals to manage search term, selected subject, and sort field
   searchTerm = signal('');
   selectedSubject = signal('');
+  sortField = signal('courseName');
 
-  // Computed signal to filter courses based on search term and selected subject
+  // Computed signal to filter and sort courses based on search term, selected subject, and sort field
   filteredCourses = computed(() => {
     const search = this.searchTerm().toLowerCase().trim();
     const subject = this.selectedSubject();
+    const sortBy = this.sortField();
 
-    return this.courses().filter(course => {
+    // Filter courses based on search term and selected subject
+    const filtered = this.courses().filter(course => {
       const matchesSearch =
         course.courseName.toLowerCase().includes(search) ||
         course.courseCode.toLowerCase().includes(search);
@@ -33,6 +36,23 @@ export class Courses {
         !subject || course.subject === subject;
 
       return matchesSearch && matchesSubject;
+    });
+
+    // Sort the filtered courses based on the selected sort field
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'courseCode':
+          return a.courseCode.localeCompare(b.courseCode);
+
+        case 'points':
+          return a.points - b.points;
+
+        case 'subject':
+          return a.subject.localeCompare(b.subject);
+
+        default:
+          return a.courseName.localeCompare(b.courseName);
+      }
     });
   });
 
@@ -60,5 +80,11 @@ export class Courses {
   updateSubject(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.selectedSubject.set(select.value);
+  }
+
+  // Method to update the sort field based on user selection
+  updateSort(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.sortField.set(select.value);
   }
 }

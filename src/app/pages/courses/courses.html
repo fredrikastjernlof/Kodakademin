@@ -24,6 +24,15 @@
         </div>
     </div>
 
+    <!-- Dropdown to select the field to sort courses by -->
+    <label for="sortField">Sortera efter</label>
+    <select id="sortField" [value]="sortField()" (change)="updateSort($event)">
+        <option value="courseName">Kursnamn</option>
+        <option value="courseCode">Kurskod</option>
+        <option value="points">Poäng</option>
+        <option value="subject">Ämne</option>
+    </select>
+
     <p>
         Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
         Visar de första {{ filteredCourses().slice(0, 20).length }}.
