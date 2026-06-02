@@ -1,12 +1,17 @@
 .main-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0.5rem;
+}
+
+@media (max-width: 760px) {
+    .main-content {
+        padding: 0.25rem;
+    }
 }
 
 .site-shell {
     min-height: 100vh;
-
     background-image: url('/images/background.webp');
     background-size: cover;
     background-position: center top;
