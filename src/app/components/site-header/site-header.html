@@ -1,16 +1,27 @@
 <header class="site-header">
-     <h1><a routerLink="/" class="logo">Kodakademin</a></h1>
-     <nav class="main-nav" aria-label="Huvudmeny">
-       <ul>
-         <li routerLinkActive="current" [routerLinkActiveOptions]="{ exact: true }">
-            <a routerLink="/startsida">Kodakademin</a>
-        </li>
-         <li routerLinkActive="current">
-            <a routerLink="/kurser">Kurser</a>
-        </li>
-         <li routerLinkActive="current">
-            <a routerLink="/ramschema">Ramschema</a>
-        </li>
-       </ul>
-     </nav>
+  <h1><a routerLink="/" class="logo">Kodakademin</a></h1>
+  
+  <!-- The menu toggle button is only visible on smaller screens -->
+  <button class="menu-toggle" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()"
+    aria-controls="mainMenu">
+    @if (menuOpen()) {
+    <span aria-hidden="true">✕</span>
+    } @else {
+    <span aria-hidden="true">☰</span>
+    }
+  </button>
+
+  <nav id="mainMenu" class="main-nav" [class.is-open]="menuOpen()" aria-label="Huvudmeny">
+    <ul>
+      <li routerLinkActive="current" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/startsida" (click)="closeMenu()">Start</a>
+      </li>
+      <li routerLinkActive="current">
+        <a routerLink="/kurser" (click)="closeMenu()">Kurser</a>
+      </li>
+      <li routerLinkActive="current">
+        <a routerLink="/ramschema" (click)="closeMenu()">Ramschema</a>
+      </li>
+    </ul>
+  </nav>
 </header>

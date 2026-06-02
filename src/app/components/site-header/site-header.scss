@@ -1,15 +1,110 @@
 .site-header {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
-.site-header ul {
+.site-header h1 {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: white;
+}
+
+.logo {
+  display: inline-block;
+  color: #111827;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.logo::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 0.25rem;
+  margin: 0.25rem auto 0;
+  border-radius: 999px;
+  background: #1f2937;
+}
+
+.menu-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  border: 0;
+  background: rgb(31 41 55 / 0.78);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 1.8rem;
+  line-height: 1;
+  text-align: right;
+  cursor: pointer;
+}
+
+.main-nav {
+  display: none;
+  background: rgb(31 41 55 / 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.main-nav.is-open {
+  display: block;
+}
+
+.main-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav li {
+  border-top: 1px solid rgb(255 255 255 / 0.16);
+}
+
+.main-nav a {
+  display: block;
+  padding: 1rem 1.5rem;
+
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.current a {
+  background: white;
+  color: #111827;
+}
+
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    display: block;
+  }
+
+  .main-nav ul {
     display: flex;
-    gap: 1rem;
-    padding: 0;
-    list-style: none;
-}
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
 
-.site-header a {
-    text-decoration: none;
+  .main-nav li {
+    border-top: 0;
+  }
+
+  .main-nav a {
+    padding: 1rem 1.4rem;
+  }
 }
