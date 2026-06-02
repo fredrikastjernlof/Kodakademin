@@ -1,1 +1,18 @@
-<p>courses works!</p>
+<h2>Kurser</h2>
+
+@for (course of courses().slice(0, 20); track course.courseCode) {
+
+<article>
+    <h3>{{ course.courseName }}</h3>
+
+    <p>
+        Kurskod: {{ course.courseCode }}
+    </p>
+
+    <p>
+        Poäng: {{ course.points }}
+    </p>
+
+</article>
+
+}
