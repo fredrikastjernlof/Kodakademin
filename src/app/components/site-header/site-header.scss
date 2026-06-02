@@ -1,0 +1,15 @@
+.site-header {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.site-header ul {
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.site-header a {
+    text-decoration: none;
+}

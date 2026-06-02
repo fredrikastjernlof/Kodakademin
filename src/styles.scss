@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global reset */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+/* Images */
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Forms */
+
+input,
+select,
+button,
+textarea {
+    font: inherit;
+    padding: 0.5rem;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
