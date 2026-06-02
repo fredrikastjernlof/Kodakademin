@@ -1,1 +1,40 @@
-<p>schedule works!</p>
+<section class="schedule-page" aria-labelledby="scheduleHeading">
+    <h2 id="scheduleHeading">Mitt ramschema</h2>
+
+    <p>
+        Här visas de kurser du har valt till ditt ramschema.
+    </p>
+
+    <!-- Summary of the schedule showing total number of courses and total points -->
+    <div class="schedule-summary">
+        <p>Antal kurser: {{ selectedCourses().length }}</p>
+        <p>Totalt antal poäng: {{ totalPoints() }}</p>
+    </div>
+
+    <!-- If no courses are selected, show a message. Otherwise, display the list of selected courses -->
+    @if (selectedCourses().length === 0) {
+    <p>Inga kurser har lagts till ännu.</p>
+    } @else {
+    <section aria-labelledby="selectedCoursesHeading">
+        <h3 id="selectedCoursesHeading">Valda kurser</h3>
+
+        <!-- Render each selected course -->
+        <ul class="schedule-list">
+            @for (course of selectedCourses(); track course.courseCode) {
+            <li>
+                <article class="course-card">
+                    <h4>{{ course.courseName }}</h4>
+
+                    <p>Kurskod: {{ course.courseCode }}</p>
+                    <p>Poäng: {{ course.points }}</p>
+
+                    <button type="button" (click)="removeCourse(course.courseCode)">
+                        Ta bort kurs
+                    </button>
+                </article>
+            </li>
+            }
+        </ul>
+    </section>
+    }
+</section>
