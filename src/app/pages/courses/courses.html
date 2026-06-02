@@ -46,6 +46,9 @@
         <p>Kurskod: {{ course.courseCode }}</p>
         <p>Poäng: {{ course.points }}</p>
         <p>Ämne: {{ course.subject }}</p>
+        <button type="button" (click)="addToSchedule(course)" [disabled]="isSelected(course.courseCode)">
+            @if (isSelected(course.courseCode)) { Tillagd } @else { Lägg till }
+        </button>
     </article>
     }
 </section>

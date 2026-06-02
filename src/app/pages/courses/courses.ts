@@ -1,5 +1,7 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { CourseService } from '../../services/course.service';
+import { ScheduleService } from '../../services/schedule.service';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-courses',
@@ -9,8 +11,9 @@ import { CourseService } from '../../services/course.service';
 })
 export class Courses {
 
-  // Inject the CourseService using Angular's dependency injection
+  // Inject the CourseService and ScheduleService to access course data and manage the schedule
   private courseService = inject(CourseService);
+  private scheduleService = inject(ScheduleService);
 
   // Update courses when the service data changes
   courses = this.courseService.allCourses;
@@ -86,5 +89,15 @@ export class Courses {
   updateSort(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.sortField.set(select.value);
+  }
+
+  // Method to add a course to the schedule using the ScheduleService
+  addToSchedule(course: Course): void {
+    this.scheduleService.addCourse(course);
+  }
+
+  // Method to check if a course is already selected in the schedule
+  isSelected(courseCode: string): boolean {
+    return this.scheduleService.isCourseSelected(courseCode);
   }
 }
