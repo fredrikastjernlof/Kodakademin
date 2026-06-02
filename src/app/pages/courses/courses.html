@@ -1,18 +1,25 @@
-<h2>Kurser</h2>
+<section class="courses-page">
+    <h2>Kurser</h2>
 
-@for (course of courses().slice(0, 20); track course.courseCode) {
+    <label for="courseSearch">Sök kurs</label>
 
-<article>
-    <h3>{{ course.courseName }}</h3>
-
-    <p>
-        Kurskod: {{ course.courseCode }}
-    </p>
+    <!-- Search input to filter courses by name or code -->
+    <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod" [value]="searchTerm()"
+        (input)="updateSearchTerm($event)">
 
     <p>
-        Poäng: {{ course.points }}
+        Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
+        Visar de första {{ filteredCourses().slice(0, 20).length }}.
     </p>
 
-</article>
+    <!-- Display the filtered courses, showing only the first 20 results for performance -->
+    @for (course of filteredCourses().slice(0, 20); track course.courseCode) {
+    <article class="course-card">
+        <h3>{{ course.courseName }}</h3>
 
-}
+        <p>Kurskod: {{ course.courseCode }}</p>
+        <p>Poäng: {{ course.points }}</p>
+        <p>Ämne: {{ course.subject }}</p>
+    </article>
+    }
+</section>
