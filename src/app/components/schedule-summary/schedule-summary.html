@@ -1,0 +1,46 @@
+<aside class="schedule-summary" aria-labelledby="summaryHeading">
+  <h3 id="summaryHeading">Tillagda kurser</h3>
+
+  <!-- Show total sum of selected courses and points -->
+  <p class="summary-total">
+    {{ selectedCourses().length }} kurser · {{ totalPoints() }} hp
+  </p>
+  
+  @if (selectedCourses().length === 0) {
+    <p class="empty-summary">Inga kurser valda ännu.</p>
+  } @else {
+    <p class="latest-label">
+      {{ showAllCourses() ? 'Alla valda kurser' : 'Senast tillagda' }}
+    </p>
+
+    <ul>
+      @for (course of visibleCourses(); track course.courseCode) {
+        <li>
+          <span class="course-summary-text">
+            <strong>{{ course.courseCode }}</strong>
+            <span>{{ course.courseName }}</span>
+          </span>
+
+          <button type="button" (click)="removeCourse(course.courseCode)">
+            Ta bort
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  <div class="summary-actions">
+    <a class="summary-link" routerLink="/ramschema">
+      Gå till ramschema
+    </a>
+    @if (selectedCourses().length > 3) {
+      <button class="toggle-list-button" type="button" (click)="toggleCourseList()">
+        @if (showAllCourses()) {
+          Visa färre
+        } @else {
+          Visa alla {{ selectedCourses().length }} kurser
+        }
+      </button>
+    }
+  </div>
+</aside>
