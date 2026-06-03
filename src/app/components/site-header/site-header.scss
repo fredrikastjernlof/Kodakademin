@@ -12,7 +12,17 @@
 
 .logo {
   display: inline-block;
-  color: #111827;
+
+  background: linear-gradient(to bottom,
+      #0f172a,
+      #4c6485,
+      #8296b3);
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
   font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 900;
   letter-spacing: 0.04em;
