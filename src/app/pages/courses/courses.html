@@ -53,7 +53,7 @@
 
                 <thead>
                     <tr>
-                        <th>
+                        <th scope="col">
                             <!-- Buttons in the table header to sort by each column -->
                             <button type="button" (click)="updateSort('courseCode')">
                                 Kurskod
@@ -63,7 +63,7 @@
                             </button>
                         </th>
 
-                        <th>
+                        <th scope="col">
                             <button type="button" (click)="updateSort('courseName')">
                                 Kursnamn
                                 @if (sortField() === 'courseName') {
@@ -72,7 +72,7 @@
                             </button>
                         </th>
 
-                        <th>
+                        <th scope="col">
                             <button type="button" (click)="updateSort('points')">
                                 Poäng
                                 @if (sortField() === 'points') {
@@ -81,7 +81,7 @@
                             </button>
                         </th>
 
-                        <th>
+                        <th scope="col">
                             <button type="button" (click)="updateSort('subject')">
                                 Ämne
                                 @if (sortField() === 'subject') {
@@ -90,7 +90,7 @@
                             </button>
                         </th>
 
-                        <th>Lägg till</th>
+                        <th scope="col">Lägg till</th>
                     </tr>
                 </thead>
 
@@ -99,7 +99,18 @@
                     @for (course of filteredCourses().slice(0, 20); track course.courseCode) {
                     <tr>
                         <td data-label="Kurskod">{{ course.courseCode }}</td>
-                        <td data-label="Kursnamn">{{ course.courseName }}</td>
+                        <td data-label="Kursnamn"><a class="course-link" [href]="course.syllabus" target="_blank"
+                                rel="noopener noreferrer"
+                                [attr.aria-label]="course.courseName + ', kurskod ' + course.courseCode + ', öppnas i ny flik'">
+                                {{ course.courseName }} <svg class="external-icon" xmlns="http://www.w3.org/2000/svg"
+                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                    <polyline points="15 3 21 3 21 9" />
+                                    <line x1="10" y1="14" x2="21" y2="3" />
+                                </svg>
+                            </a>
+                        </td>
                         <td data-label="Poäng">{{ course.points }}</td>
                         <td data-label="Ämne">{{ course.subject }}</td>
                         <td data-label="Lägg till">
