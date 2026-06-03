@@ -2,25 +2,28 @@
     <div class="page-card">
         <h2 id="coursesHeading">Kurser</h2>
 
-        <div class="filters">
-            <div>
-                <!-- Search input for filtering courses by name or code -->
-                <label for="courseSearch">Sök kurs</label>
-                <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod"
-                    [value]="searchTerm()" (input)="updateSearchTerm($event)">
-            </div>
+        <div class="course-tools">
+            <div class="filters">
+                <div>
+                    <!-- Search input for filtering courses by name or code -->
+                    <label for="courseSearch">Sök kurs</label>
+                    <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod"
+                        [value]="searchTerm()" (input)="updateSearchTerm($event)">
+                </div>
 
-            <div>
-                <!-- Dropdown for filtering courses by subject -->
-                <label for="subjectFilter">Välj ämne</label>
-                <select id="subjectFilter" [value]="selectedSubject()" (change)="updateSubject($event)">
-                    <option value="">Alla ämnen</option>
-                    <!-- Options for each subject -->
-                    @for (subject of subjects(); track subject) {
-                    <option [value]="subject">{{ subject }}</option>
-                    }
-                </select>
+                <div>
+                    <!-- Dropdown for filtering courses by subject -->
+                    <label for="subjectFilter">Välj ämne</label>
+                    <select id="subjectFilter" [value]="selectedSubject()" (change)="updateSubject($event)">
+                        <option value="">Alla ämnen</option>
+                        <!-- Options for each subject -->
+                        @for (subject of subjects(); track subject) {
+                        <option [value]="subject">{{ subject }}</option>
+                        }
+                    </select>
+                </div>
             </div>
+            <app-schedule-summary />
         </div>
         <!-- Display the count of filtered courses and total courses, showing only the first 20 results -->
         <p class="result-count">
