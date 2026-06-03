@@ -7,26 +7,38 @@
 
     <!-- Summary of the schedule showing total number of courses and total points -->
     <div class="schedule-summary">
-        <p>Antal kurser: {{ selectedCourses().length }}</p>
-        <p>Totalt antal poäng: {{ totalPoints() }}</p>
+        <p><span>Antal kurser: </span>{{ selectedCourses().length }}</p>
+        <p><span>Totalt antal poäng: </span>{{ totalPoints() }}</p>
     </div>
 
     <!-- If no courses are selected, show a message. Otherwise, display the list of selected courses -->
     @if (selectedCourses().length === 0) {
     <p>Inga kurser har lagts till ännu.</p>
     } @else {
-    <section aria-labelledby="selectedCoursesHeading">
+    <section class="courses" aria-labelledby="selectedCoursesHeading">
         <h3 id="selectedCoursesHeading">Valda kurser</h3>
 
         <!-- Render each selected course -->
-        <ul class="schedule-list">
+        <ul class="course-list">
             @for (course of selectedCourses(); track course.courseCode) {
             <li>
                 <article class="course-card">
                     <h4>{{ course.courseName }}</h4>
 
-                    <p>Kurskod: {{ course.courseCode }}</p>
-                    <p>Poäng: {{ course.points }}</p>
+                    <p><span>Kurskod: </span>{{ course.courseCode }}</p>
+                    <p><span>Poäng: </span>{{ course.points }}</p>
+                    <p><span>Kursplan: </span>
+                        <a class="course-link" [href]="course.syllabus" target="_blank" rel="noopener noreferrer"
+                            [attr.aria-label]="course.courseName + ', kurskod ' + course.courseCode + ', öppnas i ny flik'">
+                            Visa kursplan <svg class="external-icon" xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                        </a>
+                    </p>
 
                     <button type="button" (click)="removeCourse(course.courseCode)">
                         Ta bort kurs
