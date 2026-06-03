@@ -1,0 +1,103 @@
+.schedule-summary {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 0.75rem 1.5rem rgb(0 0 0 / 0.12);
+}
+
+.schedule-summary h3,
+.summary-total,
+.empty-summary,
+.latest-label {
+  margin: 0;
+}
+
+.summary-total,
+.latest-label {
+  font-weight: 700;
+}
+
+.empty-summary,
+.schedule-summary small {
+  color: #475569;
+}
+
+.schedule-summary ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schedule-summary li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.course-summary-text {
+  display: flex;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.course-summary-text strong {
+  flex-shrink: 0;
+}
+
+.course-summary-text span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-summary button,
+.summary-link {
+  border: none;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.schedule-summary li button:not(.toggle-list-button){
+  padding: 0.35rem 0.5rem;
+  background: #e5e7eb;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  cursor: pointer;
+}
+
+.summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.toggle-list-button,
+.summary-link {
+  padding: 0.5rem;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+}
+
+.toggle-list-button {
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.summary-link {
+  display: inline-block;
+  width: fit-content;
+  background: linear-gradient(135deg,
+      rgb(15 23 42 / 0.95),
+      rgb(30 41 59 / 0.92),
+      rgb(51 65 85 / 0.88));
+  color: white;
+  text-decoration: none;
+}
