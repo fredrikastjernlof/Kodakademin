@@ -2,10 +2,11 @@ import { Component, inject, computed, signal } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { ScheduleService } from '../../services/schedule.service';
 import { Course } from '../../models/course.model';
+import { ScheduleSummary } from '../../components/schedule-summary/schedule-summary';
 
 @Component({
   selector: 'app-courses',
-  imports: [],
+  imports: [ScheduleSummary],
   templateUrl: './courses.html',
   styleUrl: './courses.scss',
 })
