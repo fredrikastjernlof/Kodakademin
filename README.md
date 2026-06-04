@@ -61,6 +61,11 @@ Applikationen innehåller följande funktioner:
 * Lagring i localStorage
 * Automatisk återladdning av sparat ramschema vid nytt besök
 
+### Extra funktionalitet
+
+* Sammanfattning av valda kurser direkt på kurssidan
+* Utbyggd kurshantering med "Visa fler" och "Visa färre"
+
 ---
 
 ## Tekniker 🧩
@@ -168,6 +173,29 @@ Valda kurser lagras i localStorage vilket gör att ramschemat finns kvar även o
 Stor vikt har lagts vid responsiv design för att webbplatsen ska fungera på både mobil, surfplatta och dator.
 
 ---
+
+## Kravuppfyllelse ✅
+
+Projektet uppfyller samtliga grundkrav:
+
+* Angular och TypeScript används
+* Flera undersidor finns
+* Routing används
+* Minst två services används
+* Kursdata hämtas från JSON
+* Sortering av kurskod, kursnamn, poäng och ämne
+* Filtrering av kurskod och kursnamn
+* Filtrering på ämne
+* Ramschema kan skapas
+* Dubbletter förhindras
+* localStorage används
+* Totalpoäng beräknas
+* Responsiv design
+
+Projektet innehåller dessutom flera funktioner utöver grundkraven så som sammanfattningspanel, mobilanpassad kursvisning och utökad hantering av kurslistan.
+
+---
+
 
 ## 🚀 Installation & körning
 
