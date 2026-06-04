@@ -18,14 +18,14 @@
 
 .course-tools {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .course-tools {
-    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
-    align-items: start;
+  .filters {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
   }
 }
 
@@ -55,6 +55,7 @@
 .filters select {
   width: 100%;
   padding: 0.8rem;
+   min-height: 3.25rem;
 }
 
 .result-count {
