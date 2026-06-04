@@ -57,14 +57,19 @@
 }
 
 .nav-card a {
-  display: inline-block;
-  max-width: 100%;
-  padding: 0.9rem 1.2rem;
-  border-radius: 999px;
-  background: #1f2937;
+  width: 10rem;
+  display: block;
+  margin-top: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg,
+      rgb(15 23 42 / 0.95),
+      rgb(30 41 59 / 0.92),
+      rgb(51 65 85 / 0.88));
   color: white;
-  font-weight: 700;
+  text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-card a:hover,
