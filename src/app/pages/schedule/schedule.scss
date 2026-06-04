@@ -14,8 +14,8 @@
 }
 
 .page-intro {
-  margin-inline: auto;
-  text-align: center;
+    margin-inline: auto;
+    text-align: center;
 }
 
 .schedule-summary {
@@ -121,6 +121,22 @@
     cursor: pointer;
 }
 
+.add-courses {
+  display: block;
+  margin-top: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    rgb(15 23 42 / 0.95),
+    rgb(30 41 59 / 0.92),
+    rgb(51 65 85 / 0.88)
+  );
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 @media (min-width: 580px) {
 
