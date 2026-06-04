@@ -25,6 +25,10 @@ export class Courses {
   sortField = signal<'courseName' | 'courseCode' | 'points' | 'subject'>('courseName');
   sortDirection = signal<'asc' | 'desc'>('asc');
 
+  // Signals to manage how many courses to show
+  baseVisibleCourseCount = signal(20);
+  visibleCourseCount = signal(20);
+
   // Computed signal to filter and sort courses based on user input
   filteredCourses = computed(() => {
     const search = this.searchTerm().toLowerCase().trim();
@@ -34,9 +38,13 @@ export class Courses {
 
     // Filter courses based on search term and selected subject
     const filtered = this.courses().filter(course => {
+      const courseName = course.courseName.toLowerCase();
+      const courseCode = course.courseCode.toLowerCase();
+
       const matchesSearch =
-        course.courseName.toLowerCase().includes(search) ||
-        course.courseCode.toLowerCase().includes(search);
+        !search ||
+        courseName.includes(search) ||
+        courseCode.includes(search);
 
       const matchesSubject =
         !subject || course.subject === subject;
@@ -44,9 +52,30 @@ export class Courses {
       return matchesSearch && matchesSubject;
     });
 
-    // Sort the filtered courses based on the selected sort field and direction
+    // Sort the filtered courses based on search relevance first, then selected sort field
     return [...filtered].sort((a, b) => {
       let result = 0;
+
+      if (search) {
+        const aName = a.courseName.toLowerCase();
+        const aCode = a.courseCode.toLowerCase();
+        const bName = b.courseName.toLowerCase();
+        const bCode = b.courseCode.toLowerCase();
+
+        const aStartsWithSearch =
+          aName.startsWith(search) || aCode.startsWith(search);
+
+        const bStartsWithSearch =
+          bName.startsWith(search) || bCode.startsWith(search);
+
+        if (aStartsWithSearch && !bStartsWithSearch) {
+          return -1;
+        }
+
+        if (!aStartsWithSearch && bStartsWithSearch) {
+          return 1;
+        }
+      }
 
       switch (sortBy) {
         case 'courseCode':
@@ -65,11 +94,14 @@ export class Courses {
           result = a.courseName.localeCompare(b.courseName);
       }
 
-      // Reverse the result if the sort direction is descending
       return direction === 'asc' ? result : -result;
     });
   });
 
+  // Computed signal for the currently visible courses
+  displayedCourses = computed(() =>
+    this.filteredCourses().slice(0, this.visibleCourseCount())
+  );
 
   // Computed signal to get unique subjects from the courses
   subjects = computed(() => {
@@ -128,5 +160,24 @@ export class Courses {
   // Method to check if a course is already selected in the schedule
   isSelected(courseCode: string): boolean {
     return this.scheduleService.isCourseSelected(courseCode);
+  }
+
+  // Method to update the base number of visible courses
+  updateBaseVisibleCourseCount(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    const selectedCount = Number(select.value);
+
+    this.baseVisibleCourseCount.set(selectedCount);
+    this.visibleCourseCount.set(selectedCount);
+  }
+
+  // Method to show more courses
+  showMoreCourses(): void {
+    this.visibleCourseCount.update(count => count + 20);
+  }
+
+  // Method to show fewer courses
+  showFewerCourses(): void {
+    this.visibleCourseCount.set(this.baseVisibleCourseCount());
   }
 }
