@@ -174,22 +174,28 @@ Stor vikt har lagts vid responsiv design för att webbplatsen ska fungera på b�
 ### 1. Klona repositoryt
 
 ```bash
-git clone git remote set-url origin https://github.com/fredrikastjernlof/Kodakademin.git
+git clone https://github.com/fredrikastjernlof/Kodakademin.git
 ```
 
-### 2. Installera dependencies
+### 2. Gå in i projektmappen
+
+```bash
+cd Kodakademin
+```
+
+### 3. Installera dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Starta utvecklingsservern
+### 4. Starta utvecklingsservern
 
 ```bash
 ng serve
 ```
 
-### 4. Bygg projektet
+### 5. Bygg projektet
 
 ```bash
 ng build
