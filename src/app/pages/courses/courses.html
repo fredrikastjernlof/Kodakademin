@@ -1,8 +1,14 @@
 <section class="courses-page" aria-labelledby="coursesHeading">
     <div class="page-card">
         <h2 id="coursesHeading">Kurser</h2>
+        <p>Här kan du söka bland universitetets kurser, filtrera efter ämne och lägga till kurser i ditt ramschema för
+            att planera dina studier.</p>
 
         <div class="course-tools">
+            <!-- Component that holds summary of chosen courses -->
+            <div class="summary-wrapper">
+                <app-schedule-summary />
+            </div>
             <div class="filters">
                 <div>
                     <!-- Search input for filtering courses by name or code -->
@@ -23,7 +29,7 @@
                     </select>
                 </div>
             </div>
-            <app-schedule-summary />
+
         </div>
         <!-- Display the count of filtered courses and total courses -->
         <p class="result-count">
@@ -113,12 +119,22 @@
                 </thead>
 
                 <tbody>
-                    <!-- Loop through the filtered courses and display them in the table, show as many as the user has selected -->
+                    <!-- Loop through the courses that should currently be displayed -->
                     @for (course of displayedCourses(); track course.courseCode) {
-                    <tr>
-                        <td data-label="Kurskod">{{ course.courseCode }}</td>
-                        <td data-label="Kursnamn"><a class="course-link" [href]="course.syllabus" target="_blank"
-                                rel="noopener noreferrer"
+                    <tr [class.is-expanded]="expandedCourseCode() === course.courseCode">
+                        <td class="mobile-course-summary">
+                            <div>
+                                <strong>{{ course.courseCode }}</strong>
+                                <span>{{ course.courseName }}</span>
+                            </div>
+
+                            <button type="button" (click)="toggleCourseDetails(course.courseCode)">
+                                {{ expandedCourseCode() === course.courseCode ? 'Dölj' : 'Visa' }}
+                            </button>
+                        </td>
+                        <td class="course-detail" data-label="Kurskod">{{ course.courseCode }}</td>
+                        <td class="course-detail" data-label="Kursnamn"><a class="course-link" [href]="course.syllabus"
+                                target="_blank" rel="noopener noreferrer"
                                 [attr.aria-label]="course.courseName + ', kurskod ' + course.courseCode + ', öppnas i ny flik'">
                                 {{ course.courseName }} <svg class="external-icon" xmlns="http://www.w3.org/2000/svg"
                                     width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -129,9 +145,9 @@
                                 </svg>
                             </a>
                         </td>
-                        <td data-label="Poäng">{{ course.points }}</td>
-                        <td data-label="Ämne">{{ course.subject }}</td>
-                        <td data-label="Lägg till">
+                        <td class="course-detail" data-label="Poäng">{{ course.points }}</td>
+                        <td class="course-detail" data-label="Ämne">{{ course.subject }}</td>
+                        <td class="course-detail" data-label="Lägg till">
                             <!-- Button to add the course to the schedule, disabled if the course is already selected -->
                             <button class="add-button" type="button" (click)="addToSchedule(course)"
                                 [disabled]="isSelected(course.courseCode)" [attr.aria-label]="isSelected(course.courseCode)

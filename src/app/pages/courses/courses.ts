@@ -29,6 +29,9 @@ export class Courses {
   baseVisibleCourseCount = signal(20);
   visibleCourseCount = signal(20);
 
+  // Stores which course is currently expanded on mobile
+  expandedCourseCode = signal<string | null>(null);
+
   // Computed signal to filter and sort courses based on user input
   filteredCourses = computed(() => {
     const search = this.searchTerm().toLowerCase().trim();
@@ -180,4 +183,12 @@ export class Courses {
   showFewerCourses(): void {
     this.visibleCourseCount.set(this.baseVisibleCourseCount());
   }
+
+  // Method to expand courseinformation on smaller screens
+  toggleCourseDetails(courseCode: string): void {
+    this.expandedCourseCode.update(currentCode =>
+      currentCode === courseCode ? null : courseCode
+    );
+  }
+
 }
