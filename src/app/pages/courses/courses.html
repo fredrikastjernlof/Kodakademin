@@ -6,8 +6,8 @@
             <div class="filters">
                 <div>
                     <!-- Search input for filtering courses by name or code -->
-                    <label for="courseSearch">Sök kurs</label>
-                    <input id="courseSearch" type="search" placeholder="Sök på kursnamn eller kurskod"
+                    <label for="courseSearch">Sök kursnamn eller kurskod</label>
+                    <input id="courseSearch" type="search" placeholder="Exempel: JavaScript eller DT084G"
                         [value]="searchTerm()" (input)="updateSearchTerm($event)">
                 </div>
 
@@ -25,11 +25,26 @@
             </div>
             <app-schedule-summary />
         </div>
-        <!-- Display the count of filtered courses and total courses, showing only the first 20 results -->
+        <!-- Display the count of filtered courses and total courses -->
         <p class="result-count">
-            Hittade {{ filteredCourses().length }} av {{ courses().length }} kurser.
-            Visar de första {{ filteredCourses().slice(0, 20).length }}.
+            Visar {{ displayedCourses().length }} av {{ filteredCourses().length }} kurser.
         </p>
+
+        <div class="course-display-controls">
+            <label for="visibleCourseCount">
+                Visa antal kurser
+            </label>
+
+            <!-- Dropdown for selecting how many courses to show -->
+            <select id="visibleCourseCount" [value]="baseVisibleCourseCount()"
+                (change)="updateBaseVisibleCourseCount($event)">
+                <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="60">60</option>
+                <option value="80">80</option>
+                <option value="100">100</option>
+            </select>
+        </div>
 
         <div class="mobile-sort" aria-label="Sortera kurser">
             <label for="mobileSortField">Sortera efter</label>
@@ -98,8 +113,8 @@
                 </thead>
 
                 <tbody>
-                    <!-- Loop through the filtered courses and display them in the table, showing only the first 20 results -->
-                    @for (course of filteredCourses().slice(0, 20); track course.courseCode) {
+                    <!-- Loop through the filtered courses and display them in the table, show as many as the user has selected -->
+                    @for (course of displayedCourses(); track course.courseCode) {
                     <tr>
                         <td data-label="Kurskod">{{ course.courseCode }}</td>
                         <td data-label="Kursnamn"><a class="course-link" [href]="course.syllabus" target="_blank"
@@ -133,6 +148,29 @@
                     }
                 </tbody>
             </table>
+        </div>
+        <!-- Display the count of filtered courses and total courses -->
+        <div class="course-results-summary">
+            <p class="result-count">
+                Visar {{ displayedCourses().length }} av {{ filteredCourses().length }} kurser.
+            </p>
+        </div>
+
+        <div class="course-load-controls">
+
+            <!-- Add 20 courses to the list -->
+            @if (displayedCourses().length < filteredCourses().length) { <button type="button"
+                (click)="showMoreCourses()">
+                + Visa 20 till
+                </button>
+                }
+
+                <!-- Reset to the number of courses the user has set in the selectbox -->
+                @if (visibleCourseCount() > baseVisibleCourseCount()) {
+                <button type="button" (click)="showFewerCourses()">
+                    - Visa färre
+                </button>
+                }
         </div>
     </div>
 </section>
