@@ -119,23 +119,43 @@
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    transition:
+        transform 0.2s ease;
+}
+
+.course-card button:hover {
+    background: linear-gradient(135deg,
+            rgb(30 41 59),
+            rgb(51 65 85),
+            rgb(71 85 105));
+
+    transform: translateY(-2px);
 }
 
 .add-courses {
-  display: block;
-  margin-top: auto;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background: linear-gradient(
-    135deg,
-    rgb(15 23 42 / 0.95),
-    rgb(30 41 59 / 0.92),
-    rgb(51 65 85 / 0.88)
-  );
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
+    display: block;
+    margin-top: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg,
+            rgb(15 23 42 / 0.95),
+            rgb(30 41 59 / 0.92),
+            rgb(51 65 85 / 0.88));
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease;
+}
+
+.add-courses:hover {
+    background: linear-gradient(135deg,
+            rgb(30 41 59),
+            rgb(51 65 85),
+            rgb(71 85 105));
+            
+    transform: translateY(-2px);
 }
 
 @media (min-width: 580px) {

@@ -29,7 +29,7 @@
 .summary-wrapper {
   padding: 1.5rem 0;
   border-top: 1px solid rgb(180, 186, 200);
-  border-bottom: 1px solid  rgb(180, 186, 200);
+  border-bottom: 1px solid rgb(180, 186, 200);
 }
 
 .filters {
@@ -121,17 +121,17 @@ th button {
   font-weight: 700;
   text-align: left;
   cursor: pointer;
-}
-
-th button {
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    transform 0.2s ease;
 }
 
 th button:hover,
 th button:focus-visible {
-  background: rgb(255 255 255 / 0.08);
+  background: linear-gradient(135deg,
+      rgb(51 65 85),
+      rgb(71 85 105));
+
+  transform: translateY(-2px);
 }
 
 td {
@@ -264,6 +264,16 @@ tbody tr:hover {
     font-size: 1.2rem;
     font-weight: 800;
     cursor: pointer;
+    transition:
+      transform 0.2s ease;
+  }
+
+  .direction-button:hover {
+    background: linear-gradient(135deg,
+        rgb(51 65 85),
+        rgb(71 85 105));
+
+    transform: translateY(-2px);
   }
 
   .table-wrapper {
@@ -362,6 +372,16 @@ tbody tr:hover {
     font: inherit;
     font-weight: 700;
     cursor: pointer;
+    transition:
+      transform 0.2s ease;
+  }
+
+  .mobile-course-summary button:hover {
+    background: linear-gradient(135deg,
+        rgb(51 65 85),
+        rgb(71 85 105));
+
+    transform: translateY(-2px);
   }
 
   td[data-label="Lägg till"] {
@@ -433,11 +453,13 @@ tbody tr:hover {
   font-weight: 600;
   cursor: pointer;
   transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+    transform 0.2s ease;
 }
 
 .course-load-controls button:hover {
+  background: linear-gradient(135deg,
+      rgb(51 65 85),
+      rgb(71 85 105));
+
   transform: translateY(-2px);
-  opacity: 0.95;
 }

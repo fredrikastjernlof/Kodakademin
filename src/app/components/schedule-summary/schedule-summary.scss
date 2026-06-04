@@ -63,13 +63,20 @@
   border-radius: 0.5rem;
   font-family: inherit;
   font-weight: 700;
+  transition:
+    transform 0.2s ease;
 }
 
-.schedule-summary li button:not(.toggle-list-button){
+.schedule-summary li button:not(.toggle-list-button) {
   padding: 0.35rem 0.5rem;
   background: #e5e7eb;
   font-size: clamp(0.75rem, 2vw, 0.9rem);
   cursor: pointer;
+}
+
+.schedule-summary li button:not(.toggle-list-button):hover {
+  background: rgba(71, 85, 105, 0.516);
+  transform: translateY(-2px);
 }
 
 .summary-actions {
@@ -89,6 +96,13 @@
 .toggle-list-button {
   background: #e5e7eb;
   cursor: pointer;
+  transition:
+    transform 0.2s ease;
+}
+
+.toggle-list-button:hover {
+  background: rgba(71, 85, 105, 0.516);
+  transform: translateY(-2px);
 }
 
 .summary-link {
@@ -100,4 +114,13 @@
       rgb(51 65 85 / 0.88));
   color: white;
   text-decoration: none;
+  transition:
+    transform 0.2s ease;
+}
+
+.summary-link:hover {
+  background: linear-gradient(135deg,
+      rgb(51 65 85),
+      rgb(71 85 105));
+  transform: translateY(-2px);
 }
