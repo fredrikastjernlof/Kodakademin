@@ -1,7 +1,8 @@
+<button type="button" (click)="focusMainContent()" class="skip-link">Hoppa till innehåll</button>
 <div class="site-shell">
   <app-site-header />
 
-  <main class="main-content">
+  <main id="main-content" tabindex="-1" class="main-content">
     <router-outlet />
   </main>
 

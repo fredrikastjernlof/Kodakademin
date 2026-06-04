@@ -11,4 +11,9 @@ import { SiteFooter } from './components/site-footer/site-footer';
 })
 export class App {
   protected readonly title = signal('course-planner');
+
+   focusMainContent() {
+    const mainContent = document.getElementById('main-content');
+    mainContent?.focus();
+  }
 }
