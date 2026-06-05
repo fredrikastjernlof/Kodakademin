@@ -2,7 +2,9 @@
 
 Detta repository innehåller en webbapplikation byggd med Angular som en del av kursen Programmering i TypeScript.
 
-Applikationen föreställer ett fiktivt universitet, Kodakademin, där användaren kan utforska ett stort kursutbud, söka och filtrera bland kurser samt skapa ett eget ramschema för planering av framtida studier.
+Applikationen föreställer ett fiktivt universitet, Kodakademin, där användaren kan utforska ett stort kursutbud, söka och filtrera bland kurser samt skapa ett eget ramschema för planering av framtida studier. 
+
+Projektet uppfyller samtliga grundkrav i uppgiften och innehåller dessutom flera funktioner utöver dessa, bland annat en startsida, en sammanfattningspanel för ramschemat, mobilanpassad kursvisning, valbart antal visade kurser samt funktioner för att visa fler eller färre kurser.
 
 ---
 
@@ -236,7 +238,7 @@ ng build
 
 Webbplatsen är publicerad via Render:
 
-[Öppna webbplats]()
+[Öppna webbplats](https://kodakademin.onrender.com/)
 
 ---
 
